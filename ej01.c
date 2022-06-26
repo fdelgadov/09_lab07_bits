@@ -73,7 +73,28 @@ int bool_or(int x, int y){
   return resultado;
 }
 
+int bool_xor(int x, int y){
+  int resultado = bis(bic(x, y), bic(y, x));
+
+  return resultado;
+}
+
 void main(){
-  printf("%s\n", int2bin(-2147483648));
-  printf("%s\n", int2bin(2147483647));
+  int x = 10;
+  int y = 6;
+  int res = bool_or(x, y);
+  printf("%d %u\n", res, res);
+
+  res = bool_xor(10, 6);
+  printf("%d %u\n", res, res);
+
+  x = 4728192;
+  y = 523671;
+  res = bool_xor(x, y);
+  printf("%d %u\n%d\n", res, res, ((x ^ y) == res));
+
+  x = -4187624;
+  y = 748346;
+  res = bool_xor(x, y);
+  printf("%d %u\n%d\n", res, res, ((x ^ y) == res));
 }
