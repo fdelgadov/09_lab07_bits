@@ -3,16 +3,21 @@
 
 char* int2bin(int n){
   char* res = malloc(sizeof(char) * 33);
+
+  unsigned un = (unsigned) n;
+  //printf("%d %u\n", n, un);
+  //printf("%u %d\n", n, un);
+
   for(int i = 0; i < 32; i++)
     res[i] = '0';
   res[32] = 0;
 
-  for(int i = 0; i < 32 && n > 0; i++){
-    if(n % 2 == 0)
+  for(int i = 0; i < 32 && un > 0; i++){
+    if(un % 2 == 0)
       res[31 - i] = '0';
     else
       res[31 - i] = '1';
-    n = n / 2;
+    un = un / 2;
   }
 
   return res;
@@ -69,5 +74,6 @@ int bool_or(int x, int y){
 }
 
 void main(){
-  printf("%d\n", bool_or(10, 6));
+  printf("%s\n", int2bin(-2147483648));
+  printf("%s\n", int2bin(2147483647));
 }
