@@ -36,10 +36,33 @@ int bis(int x, int m){
   printf("%s\n%d\n", ax, res);
   free(ax);
   free(am);
-  
+
+  return res;
+}
+
+int bic(int x, int m){
+  char* ax = int2bin(x);
+  char* am = int2bin(m);
+
+  for(int i = 0; i < 32; i++){
+    if(am[i] == '1')
+      ax[i] = '0';
+  }
+
+  int res = 0;
+  for(int i = 0, tmp = 1; i < 32; i++, tmp = tmp * 2){
+    if(ax[31 - i] == '1')
+      res += tmp;
+  }
+
+  printf("%s\n%d\n", ax, res);
+  free(ax);
+  free(am);
+
   return res;
 }
 
 void main(){
   bis(10, 6);
+  bic(10, 6);
 }
