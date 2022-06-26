@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+int bis(int x, int m){
+  return x | m;
+}
+
 void main(){
-  printf("Hola mundo\n");
+  printf("%d\n", bis(10, 5));
 }
