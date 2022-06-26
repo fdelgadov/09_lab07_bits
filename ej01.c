@@ -33,7 +33,7 @@ int bis(int x, int m){
       res += tmp;
   }
 
-  printf("%s\n%d\n", ax, res);
+  //printf("%s\n%d\n", ax, res);
   free(ax);
   free(am);
 
@@ -55,14 +55,19 @@ int bic(int x, int m){
       res += tmp;
   }
 
-  printf("%s\n%d\n", ax, res);
+  //printf("%s\n%d\n", ax, res);
   free(ax);
   free(am);
 
   return res;
 }
 
+int bool_or(int x, int y){
+  int resultado = bis(x, y);
+
+  return resultado;
+}
+
 void main(){
-  bis(10, 6);
-  bic(10, 6);
+  printf("%d\n", bool_or(10, 6));
 }
