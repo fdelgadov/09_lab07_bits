@@ -1,9 +1,12 @@
 #include <stdio.h>
 
 int bis(int x, int m){
-  return x | m;
+  char* byte = (char*) &x;
+  for(int i = 0; i < 4; i++){
+    printf("%d\n", *(byte + i));
+  }
 }
 
 void main(){
-  printf("%d\n", bis(10, 5));
+  bis(400, 6);
 }
