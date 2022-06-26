@@ -1,2 +1,2 @@
-all: $(HW).c
+all:
 	gcc $(HW).c -o $(HW).exe
