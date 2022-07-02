@@ -165,8 +165,14 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmin(void) {
+  /*
+  El menor número tendría la siguiente secuencia
+  100...00
 
-  return 2;
+  Por ello basta con hacer << 31 de una secuencia
+  00...001
+  */
+  return 1 << 31;
 
 }
 //2
