@@ -199,7 +199,14 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+  /*
+  mask = 0xAAAAAAAA -> todos los bits impares por numeración
+
+  Con la operación x & mask los bits impares del resultado serán 1
+  Para que se cumpla la condición
+  x & mask = mask
+  */
+  return (0xAAAAAAAA & x) == 0xAAAAAAAA;
 }
 /* 
  * negate - return -x 
