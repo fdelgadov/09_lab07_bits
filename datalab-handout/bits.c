@@ -143,7 +143,19 @@ NOTES:
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  //~[~(a & ~b) & ~(~a & b)]
+  /*
+  Partimos de los resultados de XOR
+  1 XOR 1 = 0
+  1 XOR 0 = 1
+  0 XOR 1 = 1
+  0 XOR 0 = 0
+
+  Luego lo planteamos como proposicion:
+  (a ^ ¬b) v (¬a ^ b)
+
+  Por último negamos la proposicion anterior para evitar usar OR
+  ~[~(a & ~b) & ~(~a & b)]
+  */
   return ~(~(x & ~y) & ~(~x & y));
 }
 /* 
