@@ -216,7 +216,14 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  /*
+  Tomando en cuenta el siguiente ejemplo
+  0010 = 2
+  1101 = (-8 + 5) = -3
+
+  Bastaría con negar la secuencia y sumar 1
+  */
+  return ~x + 1;
 }
 //3
 /* 
