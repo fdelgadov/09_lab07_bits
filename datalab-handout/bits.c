@@ -267,7 +267,32 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return 2;
+  /*
+  Para este caso consideré necesario conocer los bits que tenian diferente
+  los enteros "y" y "z". El objetivo de esta máscara es obtener "z" a partir de
+  "y" o viceversa.
+  A = y ^ z
+
+  dependiendo de x se necesitará una máscara para poder cambiar y operar en los
+  enteros (y, z) y conseguir alguno de ellos como respuesta. Debido a que 'x'
+  debiera ser verdadero o false se creará la mácara para afectar a todos los
+  bits o a ninguno
+  B = ~(!!x) + 1
+  B -> 00...00 || 11...11
+
+  se utilizará la máscara B para determinar si se cambiarán los valores de los
+  bits en las posiciones determinadas por A o no.
+  C -> A & B
+
+  por último se hace el cambio de los bits
+  D -> z ^ C
+  */
+
+  int A = y ^ z;
+  int B = ~(!!x) + 1;
+  int C = A & B;
+
+  return z ^ C;
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
