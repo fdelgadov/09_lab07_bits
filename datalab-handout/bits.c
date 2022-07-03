@@ -239,17 +239,15 @@ int isAsciiDigit(int x) {
   /*
   Sabiendo que:
   a = 0x30
-  b = 0x39
+  b = 0x3a
 
   Además es verdadero si
-  (x >= a) && (x <= b)
-
-  planteamos las condiciones como operaciones con bits
-  x == a -> !(a ^ x)
+  (x >= a) && (x < b)
 
   para determinar si un numero es mayor a otro, los restamos y vemos si es
-  negativo o positivo por medio del signo
-  x > a -> !((x + ~a + 1) >> 31)
+  negativo o positivo por medio del signo. ya que el signo es positivo
+  para una diferencia de 0, se considera que es >=
+  x >= a -> !((x + ~a + 1) >> 31)
 
   del mismo modo si queremos verificar si es menor. pero debemos tomar en cuenta
   que en enteros con signo la operacion >> en negativos añade bits 1, en lugar
@@ -257,9 +255,9 @@ int isAsciiDigit(int x) {
   x < a -> !!((x + ~a + 1) >> 31)
   */
   int a = 0x30;
-  int b = 0x39;
+  int b = 0x3a;
 
-  return ((!(a ^ x)) | !((x + ~a + 1) >> 31)) & ((!(b ^ x)) | !!((x + ~b + 1) >> 31));
+  return (!((x + ~a + 1) >> 31)) & (!!((x + ~b + 1) >> 31));
 }
 /* 
  * conditional - same as x ? y : z 
