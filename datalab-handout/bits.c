@@ -304,13 +304,34 @@ int conditional(int x, int y, int z) {
 int isLessOrEqual(int x, int y) {
   /*
   para verificar si es menor se restan los números y se verifica el signo
-  x < y -> !!((x + ~y + 1) >> 31)
+  A = x < y -> !!((x + ~y + 1) >> 31)
 
   para verificar si son iguales se opera de la siguiente manera
-  x == y -> !(x ^ y)
-  */
+  B = x == y -> !(x ^ y)
 
-  return !!((x + ~y + 1) >> 31) | !(x ^ y);
+  para evitar el overflow, solo deben compararse los números si tienen el mismo
+  signo, de esta manera la diferencia (para x < y) no producirá overflow. Para
+  ello se determina el signo de cada parámetro. Además, si contienen signo
+  diferente se puede determinar con facilidad cuál es mayor o menor.
+  si x < 0 -> x >> 31 = 11..11
+  si y >= 0 -> y >> 31 = 00...00
+
+  Para que x < y teniendo en cuenta el signo, debe cumplirse la siguiente
+  condición
+  C = (x < 0) & (y >= 0) -> (x >> 31) & ~(y >> 31)
+  nota: C tiene la forma 11...11 || 00...00
+
+  En el caso de que tengan el mismo signo se procede a comparar normalmente
+  (A).
+  D = !!C | (~C & A) | B
+  */
+  
+  int A = !!((x + ~y + 1) >> 31); //6
+  int B = !(x ^ y); //2
+  int C = (x >> 31) & ~(y >> 31); //4
+  int D = C | ~(x >> 31) & (y >> 31); //5
+  
+  return !!C | (!D & A) | B; //6
 }
 //4
 /* 
