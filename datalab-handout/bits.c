@@ -321,9 +321,13 @@ int isLessOrEqual(int x, int y) {
   C = (x < 0) & (y >= 0) -> (x >> 31) & ~(y >> 31)
   nota: C tiene la forma 11...11 || 00...00
 
+  por otro lado, C no es suficiente para determinar si tienen diferente signo, por
+  ello se plantea la siguiente expresion
+  D = C | ~(x >> 31) & (y >> 31)
+
   En el caso de que tengan el mismo signo se procede a comparar normalmente
   (A).
-  D = !!C | (~C & A) | B
+  !D & A
   */
   
   int A = !!((x + ~y + 1) >> 31); //6
@@ -343,7 +347,30 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 4 
  */
 int logicalNeg(int x) {
-  return 2;
+  /*
+  debido a que estamos negando, debe ser 0 para los siguientes valores de 'x'
+  x != 0 -> x >= 1 || x < 0
+
+  primero verificamos si x < 0 verificando el signo de 'x'
+  A = x < 0 = x >> 31
+  nota: A tendra las formas: true 11...11, false 00...00
+
+  A no es suficiente para determinar le negación ya que falta evaluar si 'x' es
+  positivo y diferente de 0; es decir, x >= 1.
+  C = x >= 1 = (x + ~1 + 1) >> 31
+  nota: C true: 00...00
+        C false: 11...11
+
+  Por útimo, aumentamos la precision de la respuesta final, que debera ser 0 si
+  x != 0 = RES.
+  RES  = (A | ~C) + 1
+  */
+
+  int A = x >> 31;
+  int C = (x + ~1 + 1) >> 31;
+  int RES = (A | ~C) + 1;
+
+  return RES;
 }
 /* howManyBits - return the minimum number of bits required to represent x in
  *             two's complement
