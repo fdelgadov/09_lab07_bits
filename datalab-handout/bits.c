@@ -302,7 +302,15 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+  /*
+  para verificar si es menor se restan los números y se verifica el signo
+  x < y -> !!((x + ~y + 1) >> 31)
+
+  para verificar si son iguales se opera de la siguiente manera
+  x == y -> !(x ^ y)
+  */
+
+  return !!((x + ~y + 1) >> 31) | !(x ^ y);
 }
 //4
 /* 
