@@ -394,10 +394,15 @@ int howManyBits(int x) {
   -5 = 1111 1111 1111 1111 1111 1111 1111 1011 (32 bits)
   12 = 0000 0000 0000 0000 0000 0000 0000 1100 (32 bits)
 
+  además podemos tomar en cuenta que el opuesto de 'x' usa la misma cantidad
+  de bits, lo que puede significar una simplificación de la solución del
+  problema.
+  5 = 0101 = -8 + 4 + 0 + 1 (4 bits)
+
   se puede observar que para determinar el número de bits mínimos requeridos es
   necesario separar las secuencias en dos bloques:
-  1. bits repetidos de izq a der: (11...11)0... o (00..00)1..
-  2. bits restantes: 11...11(0..) o 00...00(1...)
+  1. bits repetidos de izq a der: (00...00)1...
+  2. bits restantes: 00...00(1...)
 
   de esta manera, podemos determinar que el número minimo de bits requeridos es
   #bits_restantes + 1
@@ -425,7 +430,14 @@ int howManyBits(int x) {
   int b2 = 2;
   int b1 = 1;
 
-  return 0;
+  int signo = x >> 31;
+  x = (signo ^ x) + (~signo + 1); // abs(x)
+
+  int aux = !(M & x); //bloque repetidos encontrado
+
+  M = M >> b16;
+  aux = !(M & x);
+  return count;
 }
 //float
 /* 
